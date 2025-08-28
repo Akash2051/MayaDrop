@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mayadrop</title>
+  <meta name="theme-color" content="#0ea5e9" />
+</head>
+<body class="bg-gray-100 text-gray-900">
+  <header class="p-4 bg-sky-600 text-white flex justify-between items-center shadow">
+    <div class="flex items-center gap-2">
+      <img src="/icon-192.png" class="w-8 h-8 rounded" alt="logo">
+      <h1 class="text-xl font-semibold">Mayadrop</h1>
+    </div>
+    <span class="px-3 py-1 bg-white/20 text-xs rounded-full">P2P + TURN</span>
+  </header>
+
+<main class="p-4 space-y-4 max-w-3xl mx-auto">
+  <!-- NEW: Device identity -->
+  <section class="bg-white p-4 rounded shadow">
+    <h2 class="font-semibold mb-3">1) Device identity</h2>
+
+    <div class="grid gap-3 sm:grid-cols-[1fr_auto]">
+      <input id="name" type="text" placeholder="e.g. Laptop (Sam)"
+             class="w-full rounded border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-sky-400" />
+      <button id="saveName"
+              class="px-4 py-2 rounded bg-sky-600 text-white hover:bg-sky-700">
+        Save name
+      </button>
+    </div>
+
+    <div class="grid gap-3 sm:grid-cols-[1fr_auto] mt-3">
+      <input id="room" type="text" placeholder="Room (optional, e.g. living-room)"
+             class="w-full rounded border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-sky-400" />
+      <button id="joinRoom"
+              class="px-4 py-2 rounded bg-sky-600 text-white hover:bg-sky-700">
+        Join room
+      </button>
+    </div>
+
+    <div class="grid gap-3 sm:grid-cols-[1fr_auto] mt-3">
+      <input id="passphrase" type="password" placeholder="Optional passphrase for extra E2E"
+             class="w-full rounded border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-sky-400" />
+      <button id="savePass"
+              class="px-4 py-2 rounded bg-sky-600 text-white hover:bg-sky-700">
+        Set passphrase
+      </button>
+    </div>
+
+    <p class="text-xs text-gray-500 mt-2">
+      Tip: All devices must use the same room name to see each other. Leave blank to use the default public lobby.
+    </p>
+  </section>
+
+  <!-- Drop files -->
+  <section class="bg-white p-4 rounded shadow">
+    <h2 class="font-semibold mb-2">2) Drop files & pick a device</h2>
+    <div id="dropzone" class="border-2 border-dashed border-sky-400 rounded p-8 text-center cursor-pointer hover:bg-sky-50">
+      Drag & drop files here, or click to select…
+    </div>
+    <div id="files" class="mt-2 text-sm text-gray-600"></div>
+  </section>
+
+  <!-- Devices -->
+  <section class="bg-white p-4 rounded shadow">
+    <h2 class="font-semibold mb-2">Devices</h2>
+    <div id="devices" class="space-y-2"></div>
+  </section>
+
+  <!-- Transfers -->
+  <section class="bg-white p-4 rounded shadow">
+    <h2 class="font-semibold mb-2">Transfers</h2>
+    <div id="transfers" class="space-y-2"></div>
+  </section>
+
+  <!-- Activity -->
+  <section class="bg-white p-4 rounded shadow">
+    <h2 class="font-semibold mb-2">Activity</h2>
+    <div id="activity" class="font-mono text-xs bg-gray-50 p-2 rounded h-40 overflow-auto"></div>
+  </section>
+</main>
+
+  <div id="modal-root" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center">
+    <div class="bg-white rounded-lg shadow p-4 max-w-sm w-full">
+      <div id="modal-title" class="font-semibold text-lg mb-2">Incoming transfer</div>
+      <div id="modal-body" class="text-sm mb-4"></div>
+      <div class="flex justify-end gap-2">
+        <button id="modal-decline" class="px-3 py-1 bg-red-500 text-white rounded">Decline</button>
+        <button id="modal-accept" class="px-3 py-1 bg-green-600 text-white rounded">Accept</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>

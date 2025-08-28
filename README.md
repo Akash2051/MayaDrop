@@ -1,11 +1,29 @@
-# MayaDrop
-Mayadrop is a secure, peer-to-peer file sharing web app that works instantly in any browser — no installs, no accounts. It uses WebRTC for direct transfers over local networks (LAN or Wi-Fi) and can fall back to a relay or TURN server for wider connectivity. Files are sent device-to-device with end-to-end encryption, keeping your data private.
+# Mayadrop (Tailwind + TURN) — Fixed Build
 
-✨ Features
-	•	🌍 Cross-platform: works on Windows, macOS, Linux, iOS, and Android — just open a browser.
-	•	⚡ Fast transfers: uses WebRTC for P2P; optional TURN/relay fallback for NAT/firewall traversal.
-	•	🔒 Private & secure: no cloud storage, no accounts, no logs.
-	•	🎯 Simple UX: drag-and-drop files, select a device, click Send.
-	•	📡 LAN first: optimized for local network speed, can handle large files (GB+).
-	•	🛠️ Docker ready: ships with docker-compose and coturn integration for production use.
-	•	🎨 Tailwind UI: clean, mobile-friendly interface with modals and progress bars.
+## Quick Start (dev)
+```bash
+npm install
+npm run dev
+# open http://localhost:5175 (WS server should run separately at :3000 if your server.js starts it),
+# or run `npm start` after build to serve from :3000
+```
+
+## Production
+```bash
+npm run build
+npm start
+# open http://<LAN-IP>:3000
+```
+
+## Docker Compose (App + coturn)
+```bash
+export TURN_SECRET=$(openssl rand -hex 16)
+export HOST_IP=$(hostname -I | awk '{print $1}')
+docker compose up --build
+```
+
+## Tailwind Build Fixes
+- Configs renamed to CommonJS: `tailwind.config.cjs`, `postcss.config.cjs`
+- Added `src/style.css` with Tailwind directives
+- Injected `import './style.css'` at the top of `src/main.js`
+- Removed `<link href="/dist/output.css">` from index.html — Vite injects CSS automatically

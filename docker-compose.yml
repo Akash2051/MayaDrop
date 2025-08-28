@@ -1,0 +1,32 @@
+services:
+  turn:
+    image: coturn/coturn:4.5.2
+    container_name: mayadrop-turn
+    command:
+      - -n --log-file=stdout
+      - --listening-port=3478
+      - --min-port=49160 --max-port=49200
+      - --realm=mayadrop
+      - --fingerprint
+      - --lt-cred-mech
+      - --use-auth-secret
+      - --static-auth-secret=${TURN_SECRET}
+      - --no-cli
+      - --no-tls
+      - --no-dtls
+    network_mode: host
+    restart: unless-stopped
+
+  app:
+    build: .
+    container_name: mayadrop-app
+    ports:
+      - "3000:3000"
+    environment:
+      - HOST=0.0.0.0
+      - PORT=3000
+      - VITE_TURN_URL=turn:${HOST_IP}:3478
+      - VITE_TURN_SECRET=${TURN_SECRET}
+      - VITE_TURN_REALM=mayadrop
+    depends_on:
+      - turn
